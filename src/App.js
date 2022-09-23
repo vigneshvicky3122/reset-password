@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Dashboard from './components/Dashboard'
+import Sidebar from './components/Sidebar'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import CreateStudent from './components/CreateStudent'
+import EditStudent from './components/EditStudent'
+import ViewStudent from './components/ViewStudent'
+import Login from './components/Login'
+
+export const url = 'http://localhost:8000/users'
+
+export const Students= React.createContext();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let data = {
+monthly : '40,000' ,
+annual : '4,80,000',
+task : '10',
+pending : '18'
 }
-
-export default App;
+  return <>
+  <div className='main-wrapper'> 
+<BrowserRouter>
+<Sidebar/>
+<Students.Provider value ={{data}}>
+<Routes>
+  <Route path="Dashboard" element={<Dashboard  data={data}/>}/>
+  <Route path="sign-up" element={<CreateStudent/>}/>
+  <Route path="login" element={<Login/>}/>
+  <Route path="reset/:id" element={<EditStudent/>}/>
+  <Route path="user" element={<ViewStudent/>}/>
+  <Route path="*" element={<Login/>}/>
+</Routes>
+</Students.Provider>
+</BrowserRouter>
+  
+  </div>
+  </>
+} 
+export default App
