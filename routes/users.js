@@ -10,7 +10,7 @@ var router = express.Router();
 const client = new MongoClient(DbURL);
 
 router.use(cors({
-  origin: "http://localhost:3000"
+  origin: "https://632dacf0ac9c140d018eece3--helloteches.netlify.app"
 }))
 /* GET users listing. */
 router.get('/user', async(req, res)=> { 
