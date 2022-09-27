@@ -6,6 +6,7 @@ import CreateStudent from './components/CreateStudent'
 import EditStudent from './components/EditStudent'
 import ViewStudent from './components/ViewStudent'
 import Login from './components/Login'
+import Forgot from './components/Forgot'
 
 export const url = 'http://localhost:8000/users'
 
@@ -27,6 +28,7 @@ pending : '18'
   <Route path="Dashboard" element={<Dashboard  data={data}/>}/>
   <Route path="sign-up" element={<CreateStudent/>}/>
   <Route path="login" element={<Login/>}/>
+  <Route path="forgot" element={<Forgot/>}/>
   <Route path="reset/:id" element={<EditStudent/>}/>
   <Route path="user" element={<ViewStudent/>}/>
   <Route path="*" element={<Login/>}/>

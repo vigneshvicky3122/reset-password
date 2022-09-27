@@ -1,57 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { url } from "../App";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function CreateStudent() {
+function Forgot() {
+  let [otp, setOtp] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  let getData = async () => {
+    let rest = await axios.get(`${url}/token`);
+    setOtp(rest.data.token);
+  };
   let navigate = useNavigate();
 
   let handleSubmit = async (data) => {
-    try {
-      let rest = await axios.post(`${url}/sign-up`, data);
-      if (rest.data.statusCode === 200) {
-        window.localStorage.setItem("app-token", rest.data.token);
-        window.alert(rest.data.message);
-        navigate("/user");
-      }
-      if (rest.data.statusCode === 401) {
-        window.alert(rest.data.message);
-        navigate("/login");
-      }
-      else {
-        window.alert(rest.data.message);
-      }
-    } catch (error) {
-      console.log(error);
+    console.log(data);
+    let rest = await axios.post(`${url}/forgot`, data);
+    if (rest.data.statusCode === 200) {
+      window.localStorage.setItem("app-token", rest.data.token);
+      window.alert(rest.data.message);
+      navigate("/user");
+    } 
+    if (rest.data.statusCode === 404) {
+      window.alert(rest.data.message);
+      navigate("/sign-up");
+    }
+    else {
+      window.alert(rest.data.message);
     }
   };
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
-      mobile: "",
-      batch: "",
+      confirm_password: "",
+      verify: "",
     },
     validationSchema: yup.object({
-      name: yup.string().required("* Required"),
       email: yup.string().email("Enter a valid email").required("* Required"),
       password: yup
         .string()
         .max(8, "Min & Max character allowed is 2-8")
         .min(5, "Enter a secure password")
         .required("* Required"),
-      mobile: yup
+      confirm_password: yup
         .string()
-        .matches(/^\d{10}$/, "Enter a valid Mobile number")
+        .max(8, "Min & Max character allowed is 2-8")
+        .min(5, "Enter a secure password")
         .required("* Required"),
-      batch: yup
-        .string()
-        .max(10, "Maximum character allowed is 10")
-        .min(2, "Minimum Character Should be 2")
-        .required("* Required"),
+      verify: yup.string().max(6).min(4).required("*enter the below token"),
     }),
     onSubmit: (values) => {
       handleSubmit(values);
@@ -61,25 +63,9 @@ function CreateStudent() {
     <>
       <div>
         <h4 style={{ color: "black" }}>
-          <strong>REGISTER HERE!!!</strong>
+          <strong>Create a New Password</strong>
         </h4>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              className="form-control"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            />
-            {formik.touched.name && formik.errors.name ? (
-              <div style={{ color: "red" }}>{formik.errors.name}</div>
-            ) : null}
-          </div>
-
+        <form onLoad={getData} onSubmit={formik.handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Email</label>
             <input
@@ -97,7 +83,7 @@ function CreateStudent() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Password</label>
+            <label htmlFor="name">New Password</label>
             <input
               id="password"
               name="password"
@@ -113,35 +99,52 @@ function CreateStudent() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Mobile Number</label>
+            <label htmlFor="name">Confirm Password</label>
             <input
-              id="mobile"
-              name="mobile"
+              id="confirm_password"
+              name="confirm_password"
               type="text"
               className="form-control"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.mobile}
+              value={formik.values.confirm_password}
             />
-            {formik.touched.mobile && formik.errors.mobile ? (
-              <div style={{ color: "red" }}>{formik.errors.mobile}</div>
+            {formik.touched.confirm_password &&
+            formik.errors.confirm_password ? (
+              <div style={{ color: "red" }}>
+                {formik.errors.confirm_password}
+              </div>
             ) : null}
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Batch code</label>
+            <label htmlFor="name">Verification</label>
             <input
-              id="batch"
-              name="batch"
+              id="verify"
+              name="verify"
               type="text"
               className="form-control"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.batch}
+              value={formik.values.verify}
             />
-            {formik.touched.batch && formik.errors.batch ? (
-              <div style={{ color: "red" }}>{formik.errors.batch}</div>
+            {formik.touched.verify && formik.errors.verify ? (
+              <div style={{ color: "red" }}>{formik.errors.verify}</div>
             ) : null}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="disabledTextInput">token</label>
+            <input
+              type="text"
+              id="disabledTextInput"
+              className="form-control"
+              value={otp}
+              disabled
+            />
+            <button type="button" onClick={getData}>
+              <i className="glyphicon glyphicon-refresh"></i>
+            </button>
           </div>
 
           <div className="form-group">
@@ -155,4 +158,4 @@ function CreateStudent() {
   );
 }
 
-export default CreateStudent;
+export default Forgot;
