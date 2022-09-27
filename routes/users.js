@@ -303,10 +303,13 @@ router.delete("/delete-user/:id", authentication, async (req, res) => {
     let data = await db
       .collection("users")
       .deleteOne({ _id: Mongodb.ObjectId(req.params.id) });
+   if (data) {
+        let users = await db.collection("users").find().toArray();
+      
     res.json({
       statusCode: 200,
       message: "Are you sure delete this user?",
-    });
+    });}
   } catch (error) {
     res.json({
       statusCode: 500,
