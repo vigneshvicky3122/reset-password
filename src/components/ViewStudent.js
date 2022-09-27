@@ -41,7 +41,7 @@ function ViewStudent() {
 
       if (rest.data.statusCode === 200) {
         window.alert(rest.data.message);
-        window.location.reload();
+//         window.location.reload();
       }
       if (rest.data.statusCode === 404) {
         window.alert(rest.data.message);
