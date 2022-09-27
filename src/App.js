@@ -8,7 +8,7 @@ import ViewStudent from './components/ViewStudent'
 import Login from './components/Login'
 import Forgot from './components/Forgot'
 
-export const url = 'http://localhost:8000/users'
+export const url = 'http://hellotech.herokuapp.com/users'
 
 export const Students= React.createContext();
 
