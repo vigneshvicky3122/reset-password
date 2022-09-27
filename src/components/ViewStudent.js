@@ -34,7 +34,7 @@ function ViewStudent() {
   };
 
   let handleDelete = async (i) => {
-    let navigate = useNavigate();
+   
     try {
       let rest = await axios.delete(`${`${url}/delete-user/${i}`}`, {
         headers: { authorization: window.localStorage.getItem("app-token") },
@@ -42,7 +42,7 @@ function ViewStudent() {
 
       if (rest.data.statusCode === 200) {
         window.alert(rest.data.message);
-        navigate("/user")
+        
       }
       if (rest.data.statusCode === 404) {
         window.alert(rest.data.message);
