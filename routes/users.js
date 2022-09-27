@@ -8,6 +8,11 @@ const env = require('dotenv').config();
 
 const client = new MongoClient(DbURL);
 
+router.use(
+  cors({
+    origin: "https://frontend--helloteches.netlify.app",
+  })
+);
 
 let authentication = async (req, res, next) => {
   let head = req.headers.authorization; 
@@ -19,15 +24,11 @@ let authentication = async (req, res, next) => {
   } catch (error) {
     res.json({
       statusCode: 404,
-      message: "Unauthorized",
+      message: "Unauthorized please login!",
     });
   }
 };
-router.use(
-  cors({
-    origin: "https://frontend--helloteches.netlify.app",
-  })
-);
+
 
 /* GET users listing. */
 router.get("/user", authentication, async (req, res) => {
