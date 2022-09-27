@@ -51,7 +51,7 @@ router.get("/user", authentication, async (req, res) => {
     client.close();
   }
 });
-router.get("/token", authentication, async (req, res) => {
+router.get("/token", async (req, res) => {
   await client.connect();
 
   try {
