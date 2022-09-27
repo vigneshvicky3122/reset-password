@@ -51,27 +51,27 @@ router.get("/user", authentication, async (req, res) => {
     client.close();
   }
 });
-// router.get("/token", authentication, async (req, res) => {
-//   await client.connect();
+router.get("/token", authentication, async (req, res) => {
+  await client.connect();
 
-//   try {
-//     const db = await client.db(DbName);
-//     let users = await db.collection("users").find().toArray();
-//     res.json({
-//       statusCode: 200,
-//       token: "326007",
-//       users,
-//     });
-//   } catch (error) {
-//     res.json({
-//       statusCode: 500,
-//       message: "internal error occurred",
-//       error: error,
-//     });
-//   } finally {
-//     client.close();
-//   }
-// });
+  try {
+    const db = await client.db(DbName);
+    let users = await db.collection("users").find().toArray();
+    res.json({
+      statusCode: 200,
+      token: "326007",
+      users,
+    });
+  } catch (error) {
+    res.json({
+      statusCode: 500,
+      message: "internal error occurred",
+      error: error,
+    });
+  } finally {
+    client.close();
+  }
+});
 
 router.get("/user/:id", authentication, async (req, res) => {
   await client.connect();
