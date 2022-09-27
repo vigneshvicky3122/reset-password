@@ -25,7 +25,7 @@ let authentication = async (req, res, next) => {
 };
 router.use(
   cors({
-    origin: "https://6332a563ce34a10008eda408--helloteches.netlify.app",
+    origin: "https://frontend--helloteches.netlify.app",
   })
 );
 
