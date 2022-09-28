@@ -10,7 +10,7 @@ const client = new MongoClient(DbURL);
 
 router.use(
   cors({
-    origin: "https://633481e946acaa0009344498--helloteches.netlify.app",
+    origin: "https://frontend--helloteches.netlify.app",
   })
 );
 
