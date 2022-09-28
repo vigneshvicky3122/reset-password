@@ -17,7 +17,7 @@ function Forgot() {
       window.alert(rest.data.message);
       navigate("/user");
     } 
-    if (rest.data.statusCode === 404) {
+    if (rest.data.statusCode === 408) {
       window.alert(rest.data.message);
       navigate("/sign-up");
     }
