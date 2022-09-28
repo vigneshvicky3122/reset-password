@@ -10,7 +10,7 @@ function Forgot() {
   let navigate = useNavigate();
 
   let handleSubmit = async (data) => {
-    console.log(data);
+
     let rest = await axios.post(`${url}/forgot`, data);
     if (rest.data.statusCode === 200) {
       window.localStorage.setItem("app-token", rest.data.token);
