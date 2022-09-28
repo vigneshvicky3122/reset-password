@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { url } from "../App";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -115,7 +115,7 @@ function Login() {
             </button>
           </div>
           <div className="form-group">
-            <a href="/forgot">Forgot password</a>
+            <Link to='/forgot'><a href="#!">Forgot Password</a></Link>
           </div>
         </form>
       </div>
