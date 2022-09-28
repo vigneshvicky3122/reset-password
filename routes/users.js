@@ -10,7 +10,7 @@ const client = new MongoClient(DbURL);
 
 router.use(
   cors({
-    origin: "https://frontend--helloteches.netlify.app",
+    origin: "https://633481e946acaa0009344498--helloteches.netlify.app",
   })
 );
 
@@ -39,27 +39,6 @@ router.get("/user", authentication, async (req, res) => {
     let users = await db.collection("users").find().toArray();
     res.json({
       statusCode: 200,
-      users,
-    });
-  } catch (error) {
-    res.json({
-      statusCode: 500,
-      message: "internal error occurred",
-      error: error,
-    });
-  } finally {
-    client.close();
-  }
-});
-router.get("/token", async (req, res) => {
-  await client.connect();
-
-  try {
-    const db = await client.db(DbName);
-    let users = await db.collection("users").find().toArray();
-    res.json({
-      statusCode: 200,
-      token: "326007",
       users,
     });
   } catch (error) {
