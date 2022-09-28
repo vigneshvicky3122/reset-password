@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { url } from "../App";
 import axios from "axios";
@@ -6,16 +6,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 function Forgot() {
-  let [otp, setOtp] = useState("");
+//   let [otp, setOtp] = useState("");
 
-  useEffect(() => {
-    getData();
-  }, []);
+//   useEffect(() => {
+//     getData();
+//   }, []);
 
-  let getData = async () => {
-    let rest = await axios.get(`${url}/token`);
-    setOtp(rest.data.token);
-  };
+//   let getData = async () => {
+//     let rest = await axios.get(`${url}/token`);
+//     setOtp(rest.data.token);
+//   };
   let navigate = useNavigate();
 
   let handleSubmit = async (data) => {
@@ -39,7 +39,7 @@ function Forgot() {
       email: "",
       password: "",
       confirm_password: "",
-      verify: "",
+//       verify: "",
     },
     validationSchema: yup.object({
       email: yup.string().email("Enter a valid email").required("* Required"),
@@ -53,7 +53,7 @@ function Forgot() {
         .max(8, "Min & Max character allowed is 2-8")
         .min(5, "Enter a secure password")
         .required("* Required"),
-      verify: yup.string().max(6).min(4).required("*enter the below token"),
+//       verify: yup.string().max(6).min(4).required("*enter the below token"),
     }),
     onSubmit: (values) => {
       handleSubmit(values);
@@ -117,35 +117,35 @@ function Forgot() {
             ) : null}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="name">Verification</label>
-            <input
-              id="verify"
-              name="verify"
-              type="text"
-              className="form-control"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.verify}
-            />
-            {formik.touched.verify && formik.errors.verify ? (
-              <div style={{ color: "red" }}>{formik.errors.verify}</div>
-            ) : null}
-          </div>
+//           <div className="form-group">
+//             <label htmlFor="name">Verification</label>
+//             <input
+//               id="verify"
+//               name="verify"
+//               type="text"
+//               className="form-control"
+//               onChange={formik.handleChange}
+//               onBlur={formik.handleBlur}
+//               value={formik.values.verify}
+//             />
+//             {formik.touched.verify && formik.errors.verify ? (
+//               <div style={{ color: "red" }}>{formik.errors.verify}</div>
+//             ) : null}
+//           </div>
 
-          <div className="form-group">
-            <label htmlFor="disabledTextInput">token</label>
-            <input
-              type="text"
-              id="disabledTextInput"
-              className="form-control"
-              value={otp}
-              disabled
-            />
-            <button type="button" onClick={getData}>
-              <i className="glyphicon glyphicon-refresh"></i>
-            </button>
-          </div>
+//           <div className="form-group">
+//             <label htmlFor="disabledTextInput">token</label>
+//             <input
+//               type="text"
+//               id="disabledTextInput"
+//               className="form-control"
+//               value={otp}
+//               disabled
+//             />
+//             <button type="button" onClick={getData}>
+//               <i className="glyphicon glyphicon-refresh"></i>
+//             </button>
+//           </div>
 
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
